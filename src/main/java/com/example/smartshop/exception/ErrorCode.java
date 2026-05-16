@@ -1,0 +1,24 @@
+package com.example.smartshop.exception;
+
+import lombok.Getter;
+
+@Getter
+public enum ErrorCode {
+
+    ACCOUNT_NOT_FOUND("DEMO_PROJECT_EXCEPTION_0001"),
+    PRODUCT_NOT_FOUND("DEMO_PROJECT_EXCEPTION_0002"),
+    ORDER_NOT_FOUND("DEMO_PROJECT_EXCEPTION_0003"),
+    ORDER_ITEM_NOT_FOUND("DEMO_PROJECT_EXCEPTION_0004"),
+    BAD_REQUEST("DEMO_PROJECT_EXCEPTION_0005"),
+    PRODUCT_OUT_OF_STOCK("DEMO_PROJECT_EXCEPTION_0006"),
+    NOT_ENOUGH_BALANCE("DEMO_PROJECT_EXCEPTION_0007"),
+    DUPLICATE_PRODUCT("DEMO_PROJECT_EXCEPTION_0008");
+
+
+
+    private final String code;
+
+    ErrorCode(String code) {
+        this.code = code;
+    }
+}

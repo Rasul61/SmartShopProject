@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260406-03
+      author: Rasul
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: total_price
+                  type: decimal(10,2)
+
+              - column:
+                  name: status
+                  type: varchar(50)
+
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+              - column:
+                  name: updated_at
+                  type: timestamp
+
+
+        - changeSet:
+            id: 20260406-04
+            author: Rasul
+            changes:
+              - addForeignKeyConstraint:
+                  baseTableName: orders
+                  baseColumnNames: user_id
+                  referencedTableName: users
+                  referencedColumnNames: id
+                  constraintName: fk_orders_user
