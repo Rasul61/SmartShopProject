@@ -51,8 +51,7 @@ public class OrderItemServiceImpl implements OrderItemService {
                 .orElseThrow(() -> new NotFoundException(ErrorCode.ORDER_ITEM_NOT_FOUND, OrderItem.class.getSimpleName(), id));
 
         if (orderItemRequestDTO.getQuantity() != null) {
-            orderItemRequestDTO.setQuantity(orderItem.getQuantity());
-        }
+            orderItem.setQuantity(orderItemRequestDTO.getQuantity());        }
 
         BigDecimal newPrice = orderItem.getProduct().getPrice()
                 .multiply(BigDecimal.valueOf(orderItemRequestDTO.getQuantity()));
