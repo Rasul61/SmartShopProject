@@ -4,7 +4,7 @@ package com.example.smartshop.controller;
 import com.example.smartshop.dto.request.AuthRequest;
 import com.example.smartshop.dto.request.RegisterRequest;
 import com.example.smartshop.dto.response.AuthResponse;
-import com.example.smartshop.service.concurate.AuthService;
+import com.example.smartshop.service.impl.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

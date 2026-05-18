@@ -71,6 +71,11 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.PATCH, "/api/v1/orders/**")
                         .hasAnyRole("USER", "ADMIN", "SUPER_ADMIN")
+
+                        .requestMatchers("/api/v1/wishlist/**")
+                        .hasAnyRole("USER", "ADMIN", "SUPER_ADMIN")
+
+
                         // OTHER
                         .anyRequest().authenticated()
                 )

@@ -1,6 +1,6 @@
 package com.example.smartshop.config;
 
-import com.example.smartshop.service.concurate.JwtService;
+import com.example.smartshop.service.impl.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

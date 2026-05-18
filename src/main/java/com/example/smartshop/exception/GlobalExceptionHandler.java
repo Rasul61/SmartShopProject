@@ -1,6 +1,6 @@
 package com.example.smartshop.exception;
 
-import com.example.smartshop.service.concurate.TranslatorService;
+import com.example.smartshop.service.impl.TranslatorService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;

@@ -3,6 +3,7 @@ package com.example.smartshop.controller;
 import com.example.smartshop.dto.request.OrderItemRequestDTO;
 import com.example.smartshop.dto.response.OrderResponseDTO;
 import com.example.smartshop.model.User;
+import com.example.smartshop.model.enums.OrderStatus;
 import com.example.smartshop.repository.UserRepository;
 import com.example.smartshop.service.abstraction.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +51,13 @@ public class OrderController {
     public OrderResponseDTO cancelOrder(@PathVariable Long id) {
         return orderService.cancelOrder(id);
 //        http://localhost:8077/api/v1/orders/13/cancel
+    }
+
+    @PatchMapping("/{id}/status")
+    public OrderResponseDTO changeStatus(@PathVariable Long id,
+                                         @RequestParam OrderStatus status) {
+        return orderService.changeStatus(id, status);
+        //http://localhost:8077/api/v1/orders/5/status?status=SHIPPED
     }
 
     @DeleteMapping("/{id}")

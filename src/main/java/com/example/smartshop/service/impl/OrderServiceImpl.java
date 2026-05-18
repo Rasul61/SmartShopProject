@@ -1,8 +1,7 @@
-package com.example.smartshop.service.concurate;
+package com.example.smartshop.service.impl;
 
 import com.example.smartshop.dto.mapper.OrderMapper;
 import com.example.smartshop.dto.request.OrderItemRequestDTO;
-import com.example.smartshop.dto.request.OrderRequestDTO;
 import com.example.smartshop.dto.response.OrderResponseDTO;
 import com.example.smartshop.exception.*;
 import com.example.smartshop.model.User;
@@ -48,8 +47,11 @@ public class OrderServiceImpl implements OrderService {
             }
 
             Product product = productRepository.findById(item.getProductId())
-                    .orElseThrow();
-
+                    .orElseThrow(() -> new NotFoundException(
+                            ErrorCode.PRODUCT_NOT_FOUND,
+                            Product.class.getSimpleName(),
+                            item.getProductId()
+                    ));
             if (product.getQuantity() < item.getQuantity()) {
                 throw new ProductOutOfStockException(product.getQuantity());
             }
@@ -92,12 +94,46 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
+    @CacheEvict(value = "orders", key = "#id")
+    public OrderResponseDTO changeStatus(Long id, OrderStatus newStatus) {
+
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(
+                        ErrorCode.ORDER_NOT_FOUND,
+                        Order.class.getSimpleName(),
+                        id
+                ));
+
+        OrderStatus currentStatus = order.getStatus();
+
+        if (currentStatus == OrderStatus.CANCELLED || currentStatus == OrderStatus.DELIVERED) {
+            throw new BadRequestException(ErrorCode.BAD_REQUEST);
+        }
+
+        if (currentStatus == OrderStatus.PAID && newStatus == OrderStatus.SHIPPED) {
+            order.setStatus(OrderStatus.SHIPPED);
+        } else if (currentStatus == OrderStatus.SHIPPED && newStatus == OrderStatus.DELIVERED) {
+            order.setStatus(OrderStatus.DELIVERED);
+        } else if (newStatus == OrderStatus.CANCELLED) {
+            return cancelOrder(id);
+        } else {
+            throw new BadRequestException(ErrorCode.BAD_REQUEST);
+        }
+
+        order.setUpdatedAt(LocalDateTime.now());
+
+        return orderMapper.entityToResponse(orderRepository.save(order));
+    }
+
+    @Override
     @Cacheable(value = "orders", key = "#id")
     public OrderResponseDTO getOrderById(Long id) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(ErrorCode.ORDER_NOT_FOUND, Order.class.getSimpleName(), id));
         return orderMapper.entityToResponse(order);
     }
+
 
     @Override
     public List<OrderResponseDTO> getOrders() {

@@ -1,8 +1,9 @@
 package com.example.smartshop.model.enums;
 
 public enum OrderStatus {
-    CREATED,
-    PAID,
-    SHIPPED,
-    CANCELLED
+    PENDING,     // заказ создан, но ещё не оплачен
+    PAID,        // оплачен
+    SHIPPED,     // отправлен
+    DELIVERED,   // доставлен
+    CANCELLED    // отменён
 }

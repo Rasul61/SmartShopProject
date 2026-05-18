@@ -1,4 +1,4 @@
-package com.example.smartshop.service.concurate;
+package com.example.smartshop.service.impl;
 
 import com.example.smartshop.dto.mapper.OrderItemMapper;
 import com.example.smartshop.dto.request.OrderItemRequestDTO;
@@ -6,7 +6,6 @@ import com.example.smartshop.dto.response.OrderItemResponseDTO;
 import com.example.smartshop.exception.ErrorCode;
 import com.example.smartshop.exception.NotFoundException;
 import com.example.smartshop.model.OrderItem;
-import com.example.smartshop.model.Product;
 import com.example.smartshop.repository.OrderItemRepository;
 import com.example.smartshop.service.abstraction.OrderItemService;
 import jakarta.transaction.Transactional;

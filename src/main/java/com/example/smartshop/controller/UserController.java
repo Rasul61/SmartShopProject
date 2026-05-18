@@ -5,7 +5,7 @@ import com.example.smartshop.dto.response.UserResponseDTO;
 import com.example.smartshop.model.User;
 import com.example.smartshop.repository.UserRepository;
 import com.example.smartshop.service.abstraction.UserService;
-import com.example.smartshop.service.concurate.AuthService;
+import com.example.smartshop.service.impl.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

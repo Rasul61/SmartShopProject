@@ -1,4 +1,4 @@
-package com.example.smartshop.service.concurate;
+package com.example.smartshop.service.impl;
 
 import com.example.smartshop.dto.mapper.ProductMapper;
 import com.example.smartshop.dto.request.ProductRequestDTO;
@@ -81,35 +81,26 @@ public class ProductServiceImpl implements ProductService {
         );
 
         if (productRequestDTO.getName() != null && !productRequestDTO.getName().isEmpty()) {
-            product.setName(product.getName());
-            product.setUpdatedAt(LocalDateTime.now());
-
+            product.setName(productRequestDTO.getName());
         }
 
         if (productRequestDTO.getQuantity() != null) {
-            product.setQuantity(product.getQuantity());
-            product.setUpdatedAt(LocalDateTime.now());
-
+            product.setQuantity(productRequestDTO.getQuantity());
         }
 
         if (productRequestDTO.getPrice() != null) {
-            product.setName(product.getName());
-            product.setUpdatedAt(LocalDateTime.now());
-
+            product.setPrice(productRequestDTO.getPrice());
         }
 
         if (productRequestDTO.getCategory() != null && !productRequestDTO.getCategory().isEmpty()) {
-            product.setCategory(product.getCategory());
-            product.setUpdatedAt(LocalDateTime.now());
-
+            product.setCategory(productRequestDTO.getCategory());
         }
 
         if (productRequestDTO.getDescription() != null && !productRequestDTO.getDescription().isEmpty()) {
-            product.setDescription(product.getDescription());
-            product.setUpdatedAt(LocalDateTime.now());
-
+            product.setDescription(productRequestDTO.getDescription());
         }
 
+        product.setUpdatedAt(LocalDateTime.now());
         return ProductMapper.entityToProduct(productRepository.save(product));
     }
 
